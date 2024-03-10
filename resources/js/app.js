@@ -1,21 +1,15 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import App from './App.vue';
+import App from './components/App.vue';
+import router from './router';
+import store from './store';
 
+Vue.config.productionTip = false;
 Vue.use(VueRouter);
 
-const routes = [
-    { path: '/home', component: require('./App.vue').default },
-];
-
-const router = new VueRouter({
-    mode: 'history',
-    routes // forma corta para `routes: routes`
-});
-
-const app = new Vue({
+new Vue({
     el: '#app',
     router,
+    store,
     render: h => h(App)
 });
-

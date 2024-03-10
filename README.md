@@ -1,9 +1,13 @@
 
-# Backend para el Proyecto VIN Decoder
+# VIN Decoder 
+### Kata - Demonstrative project only
+
+![Landing Page](public/landing.png)
 
 ## Índice
 
 - [Descripción](#descripción)
+- [Instalación](#instalación)
 - [Tecnologías Utilizadas](#tecnologías-utilizadas)
 - [Rutas API](#rutas-api)
     - [Autenticación](#autenticación)
@@ -14,6 +18,51 @@
 
 ## Descripción
 El backend del Proyecto VIN Decoder está diseñado para facilitar la autenticación de usuarios y la recuperación de información de vehículos utilizando el Número de Identificación del Vehículo (VIN). Se conecta con APIs externas para verificar números de teléfono y decodificar información VIN.
+
+## Instalación
+Para configurar el entorno de desarrollo y producción con Laravel Sail, siga estos pasos:
+
+### Prerrequisitos
+Asegúrese de tener instalado:
+- Git
+- Docker Desktop
+- Composer
+- Node.js y npm
+
+### Clonar el Repositorio
+Clone el repositorio usando:
+```bash
+git clone https://github.com/Daespinosag/kata-vin-decoder.git
+cd kata-vin-decoder
+```
+
+### Configurar Laravel Sail
+Laravel Sail es una interfaz de línea de comandos para la gestión de su entorno de desarrollo Docker. Ejecute:
+```bash
+cp .env.example .env
+docker run --rm \
+    -u "$(id -u):$(id -g)" \
+    -v $(pwd):/opt \
+    -w /opt \
+    laravelsail/php80-composer:latest \
+    composer install --ignore-platform-reqs
+./vendor/bin/sail up -d
+./vendor/bin/sail artisan key:generate
+./vendor/bin/sail artisan migrate
+```
+
+### Dependencias de Node
+Instale las dependencias de Node.js y compile los assets con:
+```bash
+./vendor/bin/sail npm install
+./vendor/bin/sail npm run dev # Para desarrollo
+./vendor/bin/sail npm run prod # Para producción
+```
+
+Acceda a la aplicación en `http://localhost` después de que los contenedores estén en funcionamiento.
+
+### Comandos Útiles de Sail
+Detenga los contenedores con `./vendor/bin/sail down`, use `./vendor/bin/sail artisan` para comandos de Artisan y `./vendor/bin/sail shell` para una shell interactiva.
 
 ## Tecnologías Utilizadas
 - Laravel 10.x
